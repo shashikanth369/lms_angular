@@ -1,0 +1,101 @@
+
+
+
+
+<div class="jumbotron" ng-controller = "authorController">
+
+  <div class = "row">
+      <div class = "col-md-12">
+          <form class = "form-inline well well-sm">
+              <span class = "glyphicon glyphicon-search"></span>
+              <div class = "form-group">
+                  <input type="text" class="form-control" placeholder="Branch Name"
+                         ng-model="searchAuthorName"
+                         id="searchString" ng-change="searchAuthor()">
+
+              </div>
+              <div class="form-group">
+                  <ul class="pagination">
+                      <li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+                      <li ng-repeat="n in [] | range: pagination.numPages"
+                          ng-class="{active: n == pagination.page}"><a href=""
+                                                                       ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+                      <li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+                  </ul>
+              </div>
+
+          </form>
+      </div>
+  </div>
+        <div class = "col-md-2" ng-style = "{'margin-left': '850px'}">
+            <div class = "panel panel-default">
+                <div class = "panel-heading">Details : </div>
+                <div class = "panel-body"></div>
+                <dl>
+                    <dt>Author Name</dt>
+                    <dd>{{selectedAuthor.authorName}}</dd>
+                    <dt>Books Written </dt>
+                    <dd><span ng-repeat = "c in selectedAuthor.books">{{c.title}} | </span></dd>
+                </dl>
+            </div>
+        </div>
+
+   <!-- <div class="col-md-6" ng-style = "{'margin-top': '-100px'}">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Branch Name"
+                   aria-describedby="basic-addon1" ng-model="searchAuthorName"
+                   id="searchString" ng-change="searchAuthor()">
+
+        </div>
+    </div>-->
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+    <div class="col-md-5">
+            <table class="table table-bordered" >
+                <tr>
+                    <th ng-style = "{'height':'10'}">#</th>
+                    <th ng-style = "{'height':'10'}">Author Name</th>
+                    <th ng-style = "{'height':'10'}">Edit</th>
+                    <th ng-style = "{'height':'10'}">Delete</th>
+                </tr>
+                <tr ng-repeat = "a in  authorsList | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage"
+                    ng-style = "{'background-color' : $index== selectauthorIndex ? 'lightgray' : ''}"
+                ng-click = "selectAuthor(a, $index)">
+                    <td ng-style = "{'height':'10'}">{{$index}}</td>
+                    <td ng-style = "{'height':'10'}">{{a.authorName}}</td>
+                    <td ng-style = "{'height':'10'}"><button class="btn btn-warning" ng-click = "showeditModal(a.authorId)">Edit</button></td>
+                    <td ng-style = "{'height':'10'}"><button class="btn btn-danger" ng-click  = "deleteAuthor(a.authorId)">Delete</button></td>
+                </tr>
+            </table>
+        <div class="spinner"
+             ng-show="authorList.isLoading" >
+            <span us-spinner="{radius:8, width:5, length: 3, lines:9}" ></span >
+
+            <p >Loading...</p >
+        </div >
+</div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id = "editAuthorModal" modal = "editAuthorModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click = "closeEditModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+            </div>
+            <div class="modal-body">
+                <span>Enter author details to Edit: </span>
+                <input type="text" ng-model = "author.authorName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click = "closeEditModal()" >Close</button>
+                <button type="button" class="btn btn-primary" ng-click = "updateAuthor(author)">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

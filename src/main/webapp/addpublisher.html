@@ -1,0 +1,26 @@
+<head>
+    <title>LMS</title>
+    <style>
+
+        body{margin-left: 400px;
+            background-color:#808080;
+        }
+        button{
+            margin-left:140px;
+            margin-top : 20px;
+        }
+    </style>
+    <div class="jumbotron" ng-controller = "authorController">
+</head>
+<title>LMS</title>
+<h2>Welcome to GCIT Library Management System - Admin</h2>
+<h3>Enter Publisher Details Below:</h3>
+    PUBLISHER NAME : <input type="text" ng-model = "publisher.publisherName">
+    <br/></br>
+    PUBLISHER ADDRESS: <input type="text" ng-model = "publisher.publisherAddress">
+    <br/></br>
+    PUBLISHER PHONE: <input type="text" ng-model = "publisher.publisherPhone">
+    <br/></br>
+    <button type="submit" ng-click = "savePublisher()" class="btn btn-primary">Add publisher</button>
+
+    </div>

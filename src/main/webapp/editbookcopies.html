@@ -1,0 +1,46 @@
+<div class="jumbotron" ng-controller = "authorController">
+    <div class = "row">
+        <div class = "col-md-12">
+            <form class = "form-inline well well-sm">
+   Select Branch:
+    <select id="myselection"  ng-model="bookCopies.branchId">
+        <option ng-repeat = "b in branchList" value ="{{b.branchId}}">{{b.branchName}}</option>
+    </select>
+    <br><br><br><br>
+
+    Select Book:
+    <select   ng-model="bookCopies.bookId">
+        <option ng-repeat = "c in bookList2" value ="{{c.bookId}}">{{c.title}}</option>
+    </select>
+
+    <button ng-click = "bookCopiesModal(bookCopies.bookId, bookCopies.branchId)">Edit Copies</button>
+            </form>
+    </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id = "editCopiesModal" modal = "editCopiesModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click = "closeEditModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <span>Enter noOf Copies </span>
+                    <input type="text" ng-model = "bookCopies.noOfCopies">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click = "closeEditModal()" >Close</button>
+                    <button type="button" class="btn btn-primary" ng-click = "updateBookCopies(bookCopies)">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>

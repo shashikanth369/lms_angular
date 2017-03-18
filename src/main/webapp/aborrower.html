@@ -1,0 +1,41 @@
+<title>Borrower </title>
+
+<div class="jumbotron" ng-controller = "authorController">
+
+    ENTER THE CARD NUMBER : <input type="text" ng-model="bookLoan.cardNo">
+    <br/><br/>
+    Select branch:
+    <select id="myselection"  ng-model="bookLoan.branchId">
+        <option ng-repeat = "b in branchList" value ="{{b.branchId}}">{{b.branchName}}</option>
+    </select>
+    <button type="submit" ng-click = "checkBL(bookLoan.branchId, bookLoan.cardNo)">ENTER</button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id = "bookLoanModal" modal = "bookLoanModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click = "closeEditModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class = "col-md-3">
+                        <tr>
+                            <th>Book Name</th>
+                            <th>Check In</th>
+                        </tr>
+                        <tr ng-repeat = "b in checkInList">
+                            <td>{{b.title}}</td>
+                            <td><button ng-click = "CheckInBook(b.bookId)">Check In</button></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click = "closeEditModal()" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

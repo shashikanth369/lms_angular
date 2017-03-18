@@ -1,0 +1,43 @@
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.gcit.lms.entity.Author" %>
+<%@ page import="com.gcit.lms.entity.Book" %>
+<%@ page import="com.gcit.lms.service.AdministratorService" %>
+<%@ page import = "org.springframework.web.servlet.support.RequestContextUtils" %>
+<%@ page import = "org.springframework.context.ApplicationContext" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ include file = "include.html" %>
+<%
+    ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
+    AdministratorService adminService = (AdministratorService) ac.getBean("adminService");
+Author author = (Author) request.getAttribute("author");
+Integer authorId = author.getAuthorId();
+String message = (String) request.getAttribute("result");
+    try {
+        author = adminService.getAuthorByID(authorId);
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+%>
+<body>
+<%if(message != null){%>
+<div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    <%=message%>
+</div>
+<%}%>
+<div class="modal-body">
+    <h3>Edit Author Details Below:</h3>
+
+    <form action="updateAuthor" method="post">
+        Author Name: <input type="text" name="authorName" value="<%=author.getAuthorName() %>"> <br />
+        <input type="hidden" name="authorId" value=<%=author.getAuthorId() %>>
+        <button type="submit">Edit Author</button>
+    </form>
+</div>
+</body>

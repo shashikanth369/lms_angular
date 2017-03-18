@@ -1,0 +1,163 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.gcit.lms.entity.Author"%>
+<%@ page import="com.gcit.lms.entity.Branch"%>
+<%@ page import="com.gcit.lms.entity.Book"%>
+<%@ page import="com.gcit.lms.service.AdministratorService"%>
+<%@ include file="include.html"%>
+<%
+    AdministratorService service = new AdministratorService();
+    Integer branchCount = service.getBranchCount();
+    int pgno = 0;
+    if(branchCount % 10 > 0){
+        pgno = branchCount + 1;
+    }
+    else pgno = branchCount /10;
+    List<Branch> branch = new ArrayList<Branch>();
+    if (request.getAttribute("branch") != null) {
+        branch = (List<Branch>) request.getAttribute("branch");
+        branchCount = branch.size();
+    } else {
+        branch = service.getAllBranches(1);
+    }
+%>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <%for(int i=1; i< pgno; i++){%>
+        <li><a href="#"><%=i%></a></li>
+        <%}%>
+
+    </ul>
+</nav>
+<%--<head>
+    <style>
+        .tbl{
+
+            padding : 2px;
+            width : 500px;
+            height : 700px;
+            margin-top :-350px;
+            margin-left : 300px;
+        }
+    </style>
+</head>--%>
+
+<script type="text/javascript">
+    function deleteBranch(branchId){
+        out.println("I am in delete function");
+        $.ajax({
+            url: "deleteBranch",
+            data:{
+                branchId: branchId
+            }
+        }).done(function(data) {
+
+            $("#pagination").html(data);
+            $('#branchtbl').html(data);
+
+        });
+    }
+
+    function searchBranch(searchString){
+        out.println(searchString)
+
+        $.ajax({
+            url: "searchBranch",
+            data:{
+                branchId: searchBranch
+            }
+        }).done(function(data) {
+
+            $('#searchResults').html(data);
+        });
+    }
+
+</script>
+
+<title>LMS</title>
+
+<h4>Welcome to GCIT Library Management System - Admin</h4>
+${result}
+
+
+<form action = "searchBranch" method = "post" class="navbar-form navbar-left" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Branch">
+    </div>
+    <button onclick="searchBranch(<%=%>);" class="btn btn-default">Search</button>
+</form>
+
+<div id="searchResults">
+    <%--<nav >
+        <ul class="pagination">
+            <li><a href="#" aria-label="Previous"> <span
+                    aria-hidden="true">&laquo;</span>
+            </a></li>
+            <%if(branchCount!=null &&  branchCount >0){
+                int pageNo = branchCount % 10;
+                int pages = 0;
+                if(pageNo == 0){
+                    pages = branchCount/10;
+                }else{
+                    pages = branchCount/10 + 1;
+                }
+                for(int i=1; i<=pages;i++){%>
+            <li><a href="pageBranch?pageNo=<%=i%>"><%=i %></a></li>
+            <%}
+
+            } %>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+        </ul>
+    </nav>--%>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <table border="2" id="branchtbl" class="tbl">
+                <tr>
+                    <th>Branch Name</th>
+                    <th>Branch Address</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+
+
+
+
+                <%
+                    for (Branch br : branch) {
+                %>
+                <tr>
+                    <td>
+                        <%
+                            out.println(br.getBranchName());
+                        %>
+                    </td>
+                    <td>
+                        <%
+                            out.println(br.getBranchAddress());
+                        %>
+                    </td>
+
+                    <td><button type="button" class="btn btn-sm btn-danger"
+                                onclick="deleteBranch(<%=br.getBranchId()%>)">DELETE</button>
+                </tr>
+                <%
+                    }
+                %>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+<div id="myModal1" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>

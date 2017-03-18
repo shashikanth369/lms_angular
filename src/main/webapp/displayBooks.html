@@ -1,0 +1,21 @@
+
+<div class="jumbotron" ng-controller = "authorController">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="col-md-6">
+        <table  border = "2" class="table table-striped">
+    <tr>
+        <th>Book Name</th>
+        <th>No of Copies</th>
+        <th>Edit</th>
+    </tr>
+    <tr ng-repeat = "bc in copiesList1">
+        <td><span a in bc.book>{{a.title}}</span></td>
+        <td>{{bc.noOfCopies}}</td>
+        <td><input type = "text" ng-model = "{{bc.noOfCopies}}" value={{bc.noOfCopies}}></td>
+        <td><button type="button" class="btn btn-primary" ng-click = "updateCopies(bc)">Update</button></td>
+    </tr>
+</table>
+
+        <button type="button" class="btn btn-primary" ng-click = "exitToLibrary()">Exit</button>
+    </div>
+</div>

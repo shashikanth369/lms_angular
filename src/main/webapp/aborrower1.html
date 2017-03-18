@@ -1,0 +1,12 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Borrower </title>
+
+<form action="checkCardNo2" method="post">
+
+    ENTER THE CARD NUMBER : <input type="text" name="cardNo">
+    <br/><br/>
+    <select id="myselection"   ng-model="author.bookIds">
+        <option ng-repeat = "b in bookList2" value ="{{b.bookId}}">{{b.title}}</option>
+    </select>
+    <button type="submit">ENTER</button>
+</form>

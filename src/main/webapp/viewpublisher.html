@@ -1,0 +1,111 @@
+
+
+
+
+<div class="jumbotron" ng-controller = "authorController">
+    <div class = "row">
+        <div class = "col-md-12">
+            <form class = "form-inline well well-sm">
+                <span class = "glyphicon glyphicon-search"></span>
+                <div class = "form-group">
+                    <input type="text" class="form-control" placeholder="Publisher Name"
+                            ng-model="searchPublisherName"
+                           id="searchString" ng-change="searchPublisher()">
+
+                </div>
+                <div class="form-group">
+                    <ul class="pagination">
+                        <li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+                        <li ng-repeat="n in [] | range: pagination.numPages"
+                            ng-class="{active: n == pagination.page}"><a href=""
+                                                                         ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+                        <li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class = "col-md-2" ng-style = "{'margin-left': '900px'}">
+        <div class = "panel panel-default">
+            <div class = "panel-heading">Details : </div>
+            <div class = "panel-body"></div>
+            <dl>
+                <dt>Publisher Name</dt>
+                <dd>{{selectedPubIndex.publisherName}}</dd>
+                <dt> Borrower Address:  </dt>
+                <dd>{{selectedPubIndex.publisherAddress}}</dd>
+                <dt>Borrower Phone:  </dt>
+                <dd>{{selectedPubIndex.publisherPhone}}</dd>
+            </dl>
+        </div>
+    </div>
+
+
+    <!--<div class="col-md-6">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Publisher Name"
+                   aria-describedby="basic-addon1" ng-model="searchPublisherName"
+                   id="searchString" ng-change="searchPublisher()">
+
+        </div>
+    </div>-->
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+        <div class="col-md-5">
+            <table class="table table-bordered" >
+                <tr>
+                    <th>#</th>
+                    <th>Publisher Name</th>
+                    <!--<th>Publisher Address</th>
+                    <th>Publisher Phone</th>-->
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat = "p in  publisherList | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage"
+                    ng-style = "{'background-color' : $index== selectPubIndex ? 'lightgray' : ''}"
+                    ng-click = "selectPub(p, $index)">
+                    <td>{{$index}}</td>
+                    <td>{{p.publisherName}}</td>
+                   <!-- <td>{{p.publisherAddress}}</td>
+                    <td>{{p.publisherPhone}}</td>-->
+                    <td><button class="btn btn-warning" ng-click = "editPubModal2(p.publisherId)">Edit</button></td>
+                    <td><button class="btn btn-danger" ng-click  = "deletePub(p.publisherId)">Delete</button></td>
+                </tr>
+
+
+            </table>
+
+        </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabe" id = "editPubModal" modal = "editPubModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click = "closeEditModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <span>Enter Publisher Name: </span>
+                    <input type="text" ng-model = "publisher.publisherName">
+                    <br>
+                    <span>Enter Publisher Address:</span>
+                    <input type = "text" ng-model = "publisher.publisherAddress">
+                    <br>
+                    <span>Enter Publisher Phone: </span>
+                    <input type="text" ng-model = "publisher.publisherPhone">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click = "closeEditModal()" >Close</button>
+                    <button type="button" class="btn btn-primary" ng-click = "updatePub(publisher)">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+

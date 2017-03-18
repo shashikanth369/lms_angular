@@ -1,0 +1,107 @@
+<div class="jumbotron" ng-controller = "authorController">
+    <div class = "row">
+        <div class = "col-md-12">
+            <form class = "form-inline well well-sm">
+                <span class = "glyphicon glyphicon-search"></span>
+                <div class = "form-group">
+                    <input type="text" class="form-control" placeholder="Borrower Name"
+                           aria-describedby="basic-addon1" ng-model="searchBorrowerName"
+                           id="searchString" ng-change="searchBorrower()">
+
+                </div>
+                <div class="form-group">
+                    <ul class="pagination">
+                        <li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+                        <li ng-repeat="n in [] | range: pagination.numPages"
+                            ng-class="{active: n == pagination.page}"><a href=""
+                                                                         ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+                        <li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class = "col-md-2" ng-style = "{'margin-left': '800px'}">
+        <div class = "panel panel-default">
+            <div class = "panel-heading">Details : </div>
+            <div class = "panel-body"></div>
+            <dl>
+                <dt>Borrower Name</dt>
+                <dd>{{selectedBorrowerIndex.name}}</dd>
+                <dt> Borrower Address:  </dt>
+                <dd>{{selectedBorrowerIndex.address}}</dd>
+                <dt>Borrower Phone:  </dt>
+                <dd>{{selectedBorrowerIndex.phone}}</dd>
+            </dl>
+        </div>
+    </div>
+
+
+
+    <!--<div class="col-md-6">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Borrower Name"
+                   aria-describedby="basic-addon1" ng-model="searchBorrowerName"
+                   id="searchString" ng-change="searchBorrower()">
+        </div>
+    </div>-->
+
+
+
+
+    <br> <br> <br> <br> <br> <br> <br> <br><br><br> <br> <br><br><br> <br>
+
+    <div class="col-md-5">
+            <table class="table table-bordered" >
+                <tr>
+                    <th>#</th>
+                    <th>borrower name</th>
+                    <!--<th>address</th>
+                    <th>phone</th>-->
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat = "bo in borrowerList | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage"
+                    ng-style = "{'background-color' : $index== selectBorrowerIndex ? 'lightgray' : ''}"
+                    ng-click = "selectBorrower(bo, $index)">
+                    <td>{{$index}}</td>
+                    <td>{{bo.name}}</td>
+                    <!--<td>{{bo.address}}</td>
+                    <td>{{bo.phone}}</td>-->
+                    <td><button class="btn btn-warning" ng-click = "borrowerModal(bo.cardNo)">Edit</button></td>
+                    <td><button class="btn btn-danger" ng-click  = "deleteBorrower(bo.cardNo)">Delete</button></td>
+
+                </tr>
+
+
+            </table>
+        </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id = "editBorrowerModal" modal = "editBorrowerModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click = "closeEditModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <span>Enter Borrower Name: </span>
+                    <input type="text" ng-model = "borrower.name">
+                    <br>
+                    <span>Enter Borrower Address: </span>
+                    <input type="text" ng-model = "borrower.address">
+                    <br>
+                    <span>Enter Borrower Phone </span>
+                    <input type="text" ng-model = "borrower.phone">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click = "closeEditModal()" >Close</button>
+                    <button type="button" class="btn btn-primary" ng-click = "updateBorrower(borrower)">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

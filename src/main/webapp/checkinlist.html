@@ -1,0 +1,19 @@
+<div class="jumbotron" ng-controller = "authorController">
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="col-md-6">
+        <table  border = "2" id = "authorsTable" class="table table-striped">
+            <tr>
+                <th>BookName</th>
+                <th>CheckIn</th>
+            </tr>
+            <tr ng-repeat = "c in checkInList">
+                <td>{{c.title}}</td>
+                <td><button ng-click = "checkIN(c)">check in</button></td>
+            </tr>
+
+
+
+</table>
+    </div>
+</div>
